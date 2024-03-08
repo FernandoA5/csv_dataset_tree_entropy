@@ -66,99 +66,128 @@ fn main() {
     //VERSIÓN DINÁMICA:
     println!("\n########################----VERSIÓN DINÁMICA----########################");
     let columnas: Vec<String> = headers.clone();
-    arbol(columnas, 
-        vectores.clone(), 
-        0, 
-        combinaciones, 
-        0, 
-        vectores.clone(), 
-        headers.clone(),
-        0
-    );
+    // arbol(columnas, 
+    //     vectores.clone(), 
+    //     0, 
+    //     combinaciones, 
+    //     0, 
+    //     vectores.clone(), 
+    //     headers.clone(),
+    //     0,
+    //     0
+    // );
+    arbol(headers.len(), headers, vectores, 0);
 
 
 }
 
-
-
-fn arbol(columnas: Vec<String>, 
-    datos: Vec<Vector>,
-    contador: usize, 
-    combinaciones: usize, 
-    indice: usize, 
-    original_data: Vec<Vector>,
-    original_headers: Vec<String>,
-    profunidad: usize  
-){
-
-    if columnas.len() == 1 {
-        let tabulador = "   ".repeat(profunidad);
-        println!("*{} {} - Columna {}: {}", tabulador,contador, columnas[0], datos[0].col[0]);
-        if contador == combinaciones-1 {
-            println!("Fin"); //To-delete
-            return;
-        }
-        else {
-            if indice == original_headers.len()-1 {
-                //REINICIAMOS EL ÍNDICE: (NUEVO SET DE ARBOLES)
-
-
-                arbol(original_headers.clone(), 
-                    original_data.clone(), 
-                    contador+1, 
-                    combinaciones, 
-                    0, 
-                    original_data.clone(),
-                    original_headers.clone(),
-                    0
-                );
-                
-            }
-            else {
-                //REINICIAMOS LA PROFUNDIDAD: (NUEVO ÁRBOL)
-                arbol(original_headers.clone(), 
-                    original_data.clone(), 
-                    contador+1, 
-                    combinaciones, 
-                    indice+1, 
-                    original_data.clone(),
-                    original_headers.clone(),
-                    0
-                );
-            }
-        }
+fn arbol(n_headers: usize, headers: Vec<String>, vectores: Vec<Vector>, n_arboles: usize,){
+    if n_headers == 1 {
+        println!("Arbol: {}", n_arboles);
+        // for i in 0..vectores.len() {
+        //     println!("*{} {} - Columna: {}", "  ".repeat(i), n_headers, headers[i]);
+        //     // for j in 0..vectores[i].col.len() {
+        //     //     println!("Valor: {}", vectores[i].col[j]);
+        //     // }
+        // }
     }
     else {
-        let mut columnas_i: Vec<String> = columnas.clone();
-        let mut datos_i: Vec<Vector> = datos.clone();
-        
-        if columnas.len() == original_headers.len(){
-            let tabulador = "   ".repeat(profunidad);
-            println!("-{} {} - Columna {}: {}", tabulador, contador ,columnas[indice], datos[indice].col[0] ); //To-delete
-            columnas_i = columnas_i.into_iter().filter(|x| *x != columnas[indice]).collect::<Vec<String>>();
-            datos_i = datos_i.into_iter().filter(|x| x.header != columnas[indice]).collect::<Vec<Vector>>();
-
+        //Eliminamos la columna actual que coincida con el valor de headers[num_col]:
+        // let mut vectores_i = vectores.clone();
+        // vectores_i = vectores_i.into_iter().filter(|x| x.header != headers[n_headers-1]).collect();
+        // let mut headers_i = headers.clone();    
+        // headers_i = headers_i.into_iter().filter(|x| *x != headers[n_headers-1]).collect();
+        // arbol(n_headers-1, headers_i.clone(), vectores_i.clone());
+        for i in 0..vectores.len(){
+            println!("-{} {} - Columna: {}", "  ".repeat(i), n_headers, headers[i]);
+            arbol(n_headers-1, headers.clone(), vectores.clone(), n_arboles);
         }
-        else{
-            let tabulador = "   ".repeat(profunidad);
-            println!("+{} {} - Columna {}: {}", tabulador, contador ,columnas[0], datos[0].col[0] ); //To-delete
-    
-            columnas_i = columnas_i.into_iter().filter(|x| *x != columnas[0]).collect::<Vec<String>>();
-            datos_i = datos_i.into_iter().filter(|x| x.header != columnas[0]).collect::<Vec<Vector>>();
-        }
-        
-        arbol(columnas_i, 
-            datos_i, 
-            contador, 
-            combinaciones, 
-            indice, 
-            original_data.clone(),
-            original_headers.clone(),
-            profunidad+1
-        );
-
     }
 }
+
+
+// fn arbol(columnas: Vec<String>, 
+//     datos: Vec<Vector>,
+//     contador: usize, 
+//     combinaciones: usize, 
+//     indice: usize, 
+//     original_data: Vec<Vector>,
+//     original_headers: Vec<String>,
+//     profunidad: usize,
+//     n_header: usize
+// ){
+
+//     if columnas.len() == 1 {
+//         let tabulador = "   ".repeat(profunidad);
+//         println!("*{} {}[{}] - Columna {}: {}", tabulador, indice, contador, columnas[0], datos[0].col[0]);
+//         if contador == combinaciones-1 {
+//             println!("Fin"); //To-delete
+//             return;
+//         }
+//         else {
+//             if indice == original_headers.len()-1 {
+//                 //REINICIAMOS EL ÍNDICE: (NUEVO SET DE ARBOLES)
+//                 println!("Reinicio"); //To-delete
+
+//                 arbol(original_headers.clone(), 
+//                     original_data.clone(), 
+//                     contador+1, 
+//                     combinaciones, 
+//                     0, 
+//                     original_data.clone(),
+//                     original_headers.clone(),
+//                     0,
+//                     n_header+1
+//                 );
+                
+//             }
+//             else {
+//                 //REINICIAMOS LA PROFUNDIDAD: (NUEVO ÁRBOL)
+//                 arbol(original_headers.clone(), 
+//                     original_data.clone(), 
+//                     contador+1, 
+//                     combinaciones, 
+//                     indice+1, 
+//                     original_data.clone(),
+//                     original_headers.clone(),
+//                     0,
+//                     n_header
+//                 );
+//             }
+//         }
+//     }
+//     else {
+//         let mut columnas_i: Vec<String> = columnas.clone();
+//         let mut datos_i: Vec<Vector> = datos.clone();
+        
+//         if columnas.len() == original_headers.len(){
+//             let tabulador = "   ".repeat(profunidad);
+//             println!("-{} {}[{}] - Columna {}: {}", tabulador, contador , indice, columnas[n_header], datos[n_header].col[0] ); //To-delete
+//             columnas_i = columnas_i.into_iter().filter(|x| *x != columnas[n_header]).collect::<Vec<String>>();
+//             datos_i = datos_i.into_iter().filter(|x| x.header != columnas[n_header]).collect::<Vec<Vector>>();
+
+//         }
+//         else{
+//             let tabulador = "   ".repeat(profunidad);
+//             println!("+{} {}[{}] - Columna {}: {}", tabulador, contador , indice, columnas[0], datos[0].col[0] ); //To-delete
+    
+//             columnas_i = columnas_i.into_iter().filter(|x| *x != columnas[0]).collect::<Vec<String>>();
+//             datos_i = datos_i.into_iter().filter(|x| x.header != columnas[0]).collect::<Vec<Vector>>();
+//         }
+        
+//         arbol(columnas_i, 
+//             datos_i, 
+//             contador, 
+//             combinaciones, 
+//             indice, 
+//             original_data.clone(),
+//             original_headers.clone(),
+//             profunidad+1,
+//             0
+//         );
+
+//     }
+// }
 
 
 
