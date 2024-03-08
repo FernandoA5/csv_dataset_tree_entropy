@@ -24,60 +24,62 @@ fn main() {
     obtener_valores_unicos_por_columna(&vectores, &headers, &mut valores_unicos_por_columna);
     
 
+    
     //Imprimimos los valores únicos de cada columna:
     for (i, valores_unicos) in valores_unicos_por_columna.iter().enumerate() {
         println!("Valores únicos de la columna {}: {:?}", headers[i], valores_unicos); //To-delete
     }
 
+
+    print!("---------------------------------ARBOL DE DECISIÓN---------------------------------\n");
+    //VERSIÓN ESTÁTICA:
+    println!("########################----VERSIÓN ESTÁTICA----########################");
+    let mut contador = 0;
     //Esto recorre de 0 a N columnas:
     for num_col in 0..headers.len(){
-        println!("Columna: {}", headers[num_col]);
+        println!("───Columna: {}", headers[num_col]);
         let mut columnas = headers.clone();
         //Eliminamos la columna actual que coincida con el valor de headers[num_col]:
         columnas = columnas.into_iter().filter(|x| *x != headers[num_col]).collect();
+        //CARACTERES PARA DIBUJAR EL ÁRBOL:
+        //┌───
+        //│
+        //└───
+        //EL CARACTER PARA CONECTAR ┌ y └ ES  en uno solo:
+        //├───
 
-        
+
 
         for col_i in columnas.clone() {
-            println!("  Columna: {}", col_i); //To-delete
+            println!("   └─── Columna: {}", col_i); //To-delete
             let columnas_i = columnas.clone();
-            //Eliminamos la columna actual que coincida con el valor de headers[num_col]:
+            //Eliminamos la columna actual
             let columnas_i: Vec<String> = columnas_i.into_iter().filter(|x| *x != col_i).collect();
 
-          
-
             for col_j in columnas_i.clone() {
-                println!("    Columna: {}", col_j); //To-delete
-                let columnas_j = columnas_i.clone();
-                //Eliminamos la columna actual que coincida con el valor de headers[num_col]:
-                let columnas_j: Vec<String> = columnas_j.into_iter().filter(|x| *x != col_j).collect();
-
                 
 
+                println!("        └─ Columna: {}", col_j); //To-delete
+
+
+                let columnas_j = columnas_i.clone();
+                //Eliminamos la columna actual
+                let columnas_j: Vec<String> = columnas_j.into_iter().filter(|x| *x != col_j).collect();
+
                 for col_k in columnas_j.clone() {
-                    println!("      Columna: {}", col_k); //To-delete
-                    let columnas_k = columnas_j.clone();
-                    //Eliminamos la columna actual que coincida con el valor de headers[num_col]:
-                    let columnas_k: Vec<String> = columnas_k.into_iter().filter(|x| *x != col_k).collect();
-                    if columnas_k.len() == 0{
-                        break;
-                    }
-                }
-
-                if columnas_j.len() == 1{
-                    break;
+                    contador += 1;  
+ 
+                    println!("           └─ Columna: {} - {}", col_k, contador); //To-delete    
                 }
             }
-
-            if columnas_i.len() == 1{
-                break;
-            }
-        }
-
-        if columnas.len() == 1{
-            break;
         }
     }
+
+
+    //VERSIÓN DINÁMICA:
+    println!("\n########################----VERSIÓN DINÁMICA----########################");
+    let mut columnas: Vec<String> = headers.clone();
+
 
 }
 
