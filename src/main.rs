@@ -41,14 +41,6 @@ fn main() {
         let mut columnas = headers.clone();
         //Eliminamos la columna actual que coincida con el valor de headers[num_col]:
         columnas = columnas.into_iter().filter(|x| *x != headers[num_col]).collect();
-        //CARACTERES PARA DIBUJAR EL ÁRBOL:
-        //┌───
-        //│
-        //└───
-        //EL CARACTER PARA CONECTAR ┌ y └ ES  en uno solo:
-        //├───
-
-
 
         for col_i in columnas.clone() {
             println!("   └─── Columna: {}", col_i); //To-delete
@@ -57,10 +49,7 @@ fn main() {
             let columnas_i: Vec<String> = columnas_i.into_iter().filter(|x| *x != col_i).collect();
 
             for col_j in columnas_i.clone() {
-                
-
                 println!("        └─ Columna: {}", col_j); //To-delete
-
 
                 let columnas_j = columnas_i.clone();
                 //Eliminamos la columna actual
@@ -68,19 +57,36 @@ fn main() {
 
                 for col_k in columnas_j.clone() {
                     contador += 1;  
- 
                     println!("           └─ Columna: {} - {}", col_k, contador); //To-delete    
                 }
             }
         }
     }
 
-
     //VERSIÓN DINÁMICA:
     println!("\n########################----VERSIÓN DINÁMICA----########################");
     let mut columnas: Vec<String> = headers.clone();
+    arbol(columnas, headers.len()-1);
 
 
+}
+
+fn arbol(columnas: Vec<String>, indice: usize){
+
+    println!("Columna {}: {}", indice, columnas[indice]);
+    if columnas.len() == 1 {
+        println!("Columna: {}", columnas[0]);
+        return;
+    }
+    else {
+        let mut columnas_i: Vec<String> = columnas.clone();
+        // let columnas_j: Vec<String> = columnas_j.into_iter().filter(|x| *x != col_j).collect();
+        columnas_i = columnas_i.into_iter().filter(|x| *x != columnas[indice]).collect::<Vec<String>>();
+
+
+        arbol(columnas_i, indice-1);
+
+    }
 }
 
 
