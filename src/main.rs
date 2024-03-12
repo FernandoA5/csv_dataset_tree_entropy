@@ -224,7 +224,7 @@ fn main() {
                 for (i, prob) in probabilidad_combinaciones.iter().enumerate(){
                     //VALIDAMOS QUE LA ENTROPIA NO SEA 0
                     let entropia: f64;
-                    if *prob == 0.0 {
+                    if *prob == 0.0 || *prob == 1.0{ 
                         entropia = 0.0;
                         entropia_combinaciones.push(entropia);
                     }
@@ -232,10 +232,17 @@ fn main() {
                         entropia = -prob * prob.log10();
                         entropia_combinaciones.push(entropia);
                     }
+                    // println!("          - {} * log10({}) = {}", prob, prob, entropia); //To-delete
 
                     //"      Entropía de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j}: {entropia}"
                     println!("        Entropía de la combinación {} {} y {} {} y {} {}: {}", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, col_j, combinaciones_valores_unicos[i].2, entropia);
+                    
                 }
+
+                //ENTROPIA TOTAL DE LA COMBINACIÓN ROOT && I && J:
+                let entropia_total_combinaciones: f64 = entropia_combinaciones.iter().sum();
+                //"      Entropía total de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j}: {entropia_total}"
+                println!("        Entropía total de la combinación {} y {} y {}: {}", headers[num_col], col_i, col_j, entropia_total_combinaciones);
                 
 
 
