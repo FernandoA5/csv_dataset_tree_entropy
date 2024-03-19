@@ -1,6 +1,3 @@
-use std::mem::zeroed;
-
-
 #[derive(Debug, Clone)]
 struct Vector{
     header: String,
@@ -9,7 +6,7 @@ struct Vector{
 }
 
 //DEFINIMOS EL PATH DEL CSV COMO UNA CONSTANTE:
-const PATH: &str = "src/titanic.csv";
+const PATH: &str = "src/crash_data_tadeo.csv";
 const VERBOSE: bool = false;
 
 fn main() {
@@ -63,10 +60,11 @@ fn main() {
             vec_apariciones.push((valor.to_string(), apariciones));
 
             
-            vec_ramas_arboles.push(format!("Apariciones de {} {}: {}\n", headers[num_col], valor, apariciones));
+            
 
 
             if VERBOSE{
+                vec_ramas_arboles.push(format!("Apariciones de {} {}: {}\n", headers[num_col], valor, apariciones));
                 println!("Apariciones de {} {}: {}", headers[num_col], valor, apariciones);  
             }
         }
@@ -90,9 +88,10 @@ fn main() {
             }
             probabilidad.push(probabilidad_i);
 
-            vec_ramas_arboles.push(format!("Probabilidad de {} {}: {}\n", headers[num_col], aparicion.0, probabilidad_i));
+            
 
             if VERBOSE{
+                vec_ramas_arboles.push(format!("Probabilidad de {} {}: {}\n", headers[num_col], aparicion.0, probabilidad_i));
                 println!("Probabilidad de {} {}: {}", headers[num_col], aparicion.0, aparicion.1 as f64 / total_apariciones as f64);
             }
         }
@@ -112,9 +111,10 @@ fn main() {
                 entropia.push(entropia_i);
             }
 
-            vec_ramas_arboles.push(format!("Entropía de {} {}: {}\n", headers[num_col], vec_apariciones[i].0, entropia_i));
+            
 
             if VERBOSE{
+                vec_ramas_arboles.push(format!("Entropía de {} {}: {}\n", headers[num_col], vec_apariciones[i].0, entropia_i));
                 println!("Entropía de {} {}: {}", headers[num_col], vec_apariciones[i].0, entropia_i);
             }
         }
@@ -156,9 +156,10 @@ fn main() {
                     apariciones_combinaciones.push(apariciones);                    
                     //"   Apariciones de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i}: {apariciones}"
 
-                    vec_ramas_arboles.push(format!("   Apariciones de la combinación {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, apariciones));
+                    
 
                     if VERBOSE{
+                        vec_ramas_arboles.push(format!("   Apariciones de la combinación {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, apariciones));
                         println!("   Apariciones de la combinación {} {} y {} {}: {}", headers[num_col], valor_root, col_i, valor_i, apariciones);
                     }
                 }
@@ -188,9 +189,10 @@ fn main() {
                     probabilidad_combinaciones.push(probabilidad);
                     //"   Probabilidad de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i}: {probabilidad}"
 
-                    vec_ramas_arboles.push(format!("   Probabilidad de la combinación {} {} y {} {}: {} \n", headers[num_col], valor_root, col_i, valor_i, probabilidad));
+                    
 
                     if VERBOSE{
+                        vec_ramas_arboles.push(format!("   Probabilidad de la combinación {} {} y {} {}: {} \n", headers[num_col], valor_root, col_i, valor_i, probabilidad));
                         println!("   Probabilidad de la combinación {} {} y {} {}: {}", headers[num_col], valor_root, col_i, valor_i, probabilidad);
                     }
                     // println!("          └─ {} / {}[{}] = {}", apariciones, div, indice_combinaciones, probabilidad);
@@ -216,9 +218,10 @@ fn main() {
 
                 //"   Entropía de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i}: {entropia}"
 
-                vec_ramas_arboles.push(format!("   Entropía de la combinación {} {} y {} {}: {}\n", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, entropia));
+                
 
                 if VERBOSE{
+                    vec_ramas_arboles.push(format!("   Entropía de la combinación {} {} y {} {}: {}\n", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, entropia));
                     println!("   Entropía de la combinación {} {} y {} {}: {}", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, entropia);
                 }
             }
@@ -263,9 +266,10 @@ fn main() {
                             apariciones_combinaciones_i.push(apariciones);
                             //"      Apariciones de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j}: {apariciones}"
 
-                            vec_ramas_arboles.push(format!("      Apariciones de la combinación {} {} y {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, apariciones));
+                            
 
                             if VERBOSE{
+                                vec_ramas_arboles.push(format!("      Apariciones de la combinación {} {} y {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, apariciones));
                                 println!("        Apariciones de la combinación {} {} y {} {} y {} {}: {}", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, apariciones);
                             }
                         }
@@ -304,9 +308,10 @@ fn main() {
 
                             //"      Probabilidad de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j}: {probabilidad}"
 
-                            vec_ramas_arboles.push(format!("      Probabilidad de la combinación {} {} y {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, probabilidad));
+                            
 
                             if VERBOSE {
+                                vec_ramas_arboles.push(format!("      Probabilidad de la combinación {} {} y {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, probabilidad));
                                 println!("        Probabilidad de la combinación {} {} y {} {} y {} {}: {}", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, probabilidad);
                             }
                             // println!("          └─ {} / {}[{}]", apariciones, div, indice_combinaciones);
@@ -333,9 +338,10 @@ fn main() {
 
                     //"      Entropía de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j}: {entropia}"
 
-                    vec_ramas_arboles.push(format!("      Entropía de la combinación {} {} y {} {} y {} {}: {}\n", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, col_j, combinaciones_valores_unicos[i].2, entropia));
+                    
 
                     if VERBOSE{
+                        vec_ramas_arboles.push(format!("      Entropía de la combinación {} {} y {} {} y {} {}: {}\n", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, col_j, combinaciones_valores_unicos[i].2, entropia));
                         println!("        Entropía de la combinación {} {} y {} {} y {} {}: {}", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, col_j, combinaciones_valores_unicos[i].2, entropia);
                     }
                     
@@ -384,9 +390,10 @@ fn main() {
                                     .count();
                                     //"          Apariciones de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j} y {nombre_columna} {valor_k}: {apariciones}"
 
-                                    vec_ramas_arboles.push(format!("             Apariciones de la combinación {} {} y {} {} y {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, col_k, valor_k, apariciones));
+                                    
 
                                     if VERBOSE {
+                                        vec_ramas_arboles.push(format!("             Apariciones de la combinación {} {} y {} {} y {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, col_k, valor_k, apariciones));
                                         println!("             Apariciones de la combinación {} {} y {} {} y {} {} y {} {}: {}", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, col_k, valor_k, apariciones);
                                     }
                                 }
@@ -424,9 +431,10 @@ fn main() {
 
                                     //"          Probabilidad de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j} y {nombre_columna} {valor_k}: {probabilidad}"
 
-                                    vec_ramas_arboles.push(format!("             Probabilidad de la combinación {} {} y {} {} y {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, col_k, valor_k, probabilidad));
+                                    
 
                                     if VERBOSE {
+                                        vec_ramas_arboles.push(format!("             Probabilidad de la combinación {} {} y {} {} y {} {} y {} {}: {}\n", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, col_k, valor_k, probabilidad));
                                         println!("             Probabilidad de la combinación {} {} y {} {} y {} {} y {} {}: {}", headers[num_col], valor_root, col_i, valor_i, col_j, valor_j, col_k, valor_k, probabilidad);
                                     }
                                     // println!("               └─ {} / {}[{}] = {}", apariciones, div, indice_combinaciones, probabilidad);
@@ -454,9 +462,10 @@ fn main() {
 
                         //"          Entropía de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j} y {nombre_columna} {valor_k}: {entropia}"
 
-                        vec_ramas_arboles.push(format!("             Entropía de la combinación {} {} y {} {} y {} {} y {} {}: {}\n", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, col_j, combinaciones_valores_unicos[i].2, col_k, combinaciones_valores_unicos[i].3, entropia));
+                        
 
                         if VERBOSE {
+                            vec_ramas_arboles.push(format!("             Entropía de la combinación {} {} y {} {} y {} {} y {} {}: {}\n", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, col_j, combinaciones_valores_unicos[i].2, col_k, combinaciones_valores_unicos[i].3, entropia));
                             println!("             Entropía de la combinación {} {} y {} {} y {} {} y {} {}: {}", headers[num_col], combinaciones_valores_unicos[i].0, col_i, combinaciones_valores_unicos[i].1, col_j, combinaciones_valores_unicos[i].2, col_k, combinaciones_valores_unicos[i].3, entropia);
                         }
                         
@@ -468,7 +477,7 @@ fn main() {
                     //"          Entropía total de la combinación {nombre_columna} {valor_root} y {nombre_columna} {valor_i} y {nombre_columna} {valor_j} y {nombre_columna} {valor_k}: {entropia_total}"
                     println!("             Entropía total de la combinación {} y {} y {} y {}: {}", headers[num_col], col_i, col_j, col_k, entropia_total_combinaciones);
 
-                    vec_ramas_arboles.push(format!("Entropia: {}\n", entropia_total_combinaciones));
+                    vec_ramas_arboles.push(format!("             Entropia: {}\n", entropia_total_combinaciones));
 
                     //GUARDAMOS LA ENTROPIA TOTAL DE LA COMBINACIÓN ROOT && I && J && K:
                     vec_arboles_entropias.push((vec_ramas_arboles.clone(), entropia_total_combinaciones));
@@ -484,7 +493,7 @@ fn main() {
     let mut menor_entropia: f64 = 1000000.0;
     let mut rama_menor_entropia: Vec<String> = Vec::new();
     for (rama, entropia) in vec_arboles_entropias.iter(){
-        if *entropia < menor_entropia{
+        if *entropia < menor_entropia && *entropia != 0.0{
             menor_entropia = *entropia;
             rama_menor_entropia = rama.clone();
         }
@@ -502,44 +511,9 @@ fn main() {
 
     println!("Rama con menor entropía: \n {}", rama_string);
 
-
-
-    //VERSIÓN DINÁMICA:
-    // println!("\n########################----VERSIÓN DINÁMICA----########################");
-    // let columnas: Vec<String> = headers.clone();
-    // let mut contador_arboles = 0;
-    // let n_headers = headers.len();
-    // // arbol(headers.len(), headers, vectores, combinaciones, 0);
-    // arbol_recursivo(n_headers, headers, &mut contador_arboles, 0, n_headers);
-    
-
-
 }
 
-// fn arbol_recursivo(n_headers: usize, headers: Vec<String>, contador_arboles: &mut usize, depth: usize, n_headers_original: usize) {
-//     if n_headers != 0 {
-//         for i_header in 0..headers.len() {
-//             if n_headers == n_headers_original{
-//                 println!("───{}Columna: {}" , "    ".repeat(depth), headers[i_header]);
-//             }
-//             else if n_headers == 1 {
-//                 *contador_arboles += 1;
-//                 println!("{}└─Columna: {}.({})", "     ".repeat(depth), headers[i_header], *contador_arboles);
-//             }
-            
-//             else{
-//                 println!("{}└─Columna: {}", "     ".repeat(depth), headers[i_header]);
-//             }
 
-
-//             let mut new_headers = headers.clone();
-//             //Eliminamos la columna actual que coincida con el valor de headers[i_header]:
-//             new_headers = new_headers.into_iter().filter(|x| *x != headers[i_header]).collect();
-            
-//             arbol_recursivo(n_headers - 1, new_headers, contador_arboles, depth + 1, n_headers_original);
-//         }
-//     }
-// }
 
 
 fn obtener_valores_unicos_por_columna(vectores: &Vec<Vector>, headers: &Vec<String>, valores_unicos_por_columna: &mut Vec<Vec<String>>){
